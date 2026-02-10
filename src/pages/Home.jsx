@@ -1,4 +1,5 @@
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+import RandomComponent from "../components/RandomComponent.jsx";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Home = () => {
@@ -11,6 +12,7 @@ export const Home = () => {
 			<p>
 				<img src={rigoImageUrl} />
 			</p>
+			<RandomComponent />
 		</div>
 	);
 }; 
