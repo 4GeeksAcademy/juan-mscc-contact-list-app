@@ -39,7 +39,7 @@ export default function Contact({item, id, updateContacts}){
 
                 <div className="py-3">
                     <i className="bi bi-pencil px-2"></i>
-                    <button onClick={() => deleteContact(id)}><i className="bi bi-trash3-fill px-2"></i></button>
+                    <i className="bi bi-trash3-fill px-2" onClick={() => deleteContact(id)}></i>
                 </div>
                 
             </li>
