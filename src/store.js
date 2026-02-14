@@ -40,8 +40,7 @@ export default function storeReducer(store, action = {}) {
     case 'set_contacts':
 
       const { contactsList } = action.payload
-      console.log(contactsList)
-      console.log(store)
+      
       return {
         ...store,
         contacts: contactsList
