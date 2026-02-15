@@ -1,42 +1,52 @@
 // Import necessary components from react-router-dom and other parts of the application.
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 
 export const Demo = () => {
   // Access the global state and dispatch function using the useGlobalReducer hook.
   const { store, dispatch } = useGlobalReducer()
 
-  const[ name , setName ] = useState('')
-  const[ email , setEmail ] = useState('')
-  const[ phone , setPhone ] = useState('')
-  const[ address , setAddress ] = useState('')
+  const { id } = useParams();
+
+  const[ name , setName ] = useState("")
+  const[ email , setEmail ] = useState("")
+  const[ phone , setPhone ] = useState("")
+  const[ address , setAddress ] = useState("")
 
   function saveContact(e){
     e.preventDefault();
 
-    if (name.trim() == ''){
-      alert('Name is a requiered field')
+    if (name.trim() == ""){
+      alert('Name is a required field')
       return null
     }
 
-    const body = {
+    const payload = {
       name: name,
-      email: email,
       phone: phone,
+      email: email,
       address: address
     }
 
     fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman/contacts', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        phone: phone,
-        address: address
-      })
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            payload
+        ),
     })
-    .then((resp => {console.log(resp)}))
+    .then((resp => {
+      console.log(resp)
+      alert('Contact Added!')
+      //navigate("/");
+      setName("");
+      setPhone("");
+      setEmail(""),
+      setAddress("");
+    }))
 
   }
 
@@ -49,7 +59,7 @@ export const Demo = () => {
 
         <div className="mb-3">
           <label htmlFor="fullName" className='form-label'>Full Name: </label>
-          <input type="text" id='fullName' name='fullName' className='form-control requiered' value={name} onChange={(e) => setName(e.target.value)}/>
+          <input type="text" id='fullName' name='fullName' className='form-control' required value={name} onChange={(e) => setName(e.target.value)}/>
         </div>
 
         <div className="mb-3">

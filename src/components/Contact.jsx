@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export default function Contact({item, id, updateContacts}){
@@ -27,7 +28,7 @@ export default function Contact({item, id, updateContacts}){
             className="list-group-item d-flex justify-content-between px-4"> 
                 
                 <div>
-                    <img src="https://placehold.co/300" className='rounded-circle img-fluid object-fit-cover'/>
+                    <img src="https://placehold.co/200" className='rounded-circle img-fluid object-fit-cover'/>
                 </div>
 
                 <div className='w-50 text-start'>
@@ -38,7 +39,7 @@ export default function Contact({item, id, updateContacts}){
                 </div>
 
                 <div className="py-3">
-                    <i className="bi bi-pencil px-2"></i>
+                    <Link to={'/editContact/' + id}> <i className="bi bi-pencil px-2"></i></Link>
                     <i className="bi bi-trash3-fill px-2" onClick={() => deleteContact(id)}></i>
                 </div>
                 

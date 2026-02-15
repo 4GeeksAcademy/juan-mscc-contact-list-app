@@ -20,14 +20,6 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'add_task':
-
-      const { id,  color } = action.payload
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      };
     case 'add_contact':
 
       const { contact } = action.payload
@@ -37,6 +29,7 @@ export default function storeReducer(store, action = {}) {
         ...store,
         contacts: [...store.contacts, contact ]
       };
+
     case 'set_contacts':
 
       const { contactsList } = action.payload
