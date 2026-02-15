@@ -35,7 +35,7 @@ export default function Contact({item, id, updateContacts}){
                     <p className="fs-3">{item.name}</p>
                     <p className="fs-5">{item.phone}</p>
                     <p className="fs-5">{item.email}</p>
-                    <p className="fs-5">{item.adress}</p>
+                    <p className="fs-5">{item.address}</p>
                 </div>
 
                 <div className="py-3">

@@ -1,5 +1,5 @@
 // Import necessary components from react-router-dom and other parts of the application.
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Custom hook for accessing the global state.
 
@@ -29,31 +29,56 @@ export const Demo = () => {
       address: address
     }
 
-    fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman/contacts', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-            payload
-        ),
-    })
-    .then((resp => {
-      console.log(resp)
-      alert('Contact Added!')
-      //navigate("/");
-      setName("");
-      setPhone("");
-      setEmail(""),
-      setAddress("");
-    }))
+    if(!id) {
+      fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman/contacts', {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(
+              payload
+          ),
+      })
+      .then((resp => {
+        console.log(resp)
+        alert('Contact Added!')
+        setName("");
+        setPhone("");
+        setEmail(""),
+        setAddress("");
+      }))
+    } else {
+      fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman/contacts/' + id, {
+          method: "PUT",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(
+              payload
+          ),
+      })
+      .then((resp => {
+        console.log(resp)
+        alert('Contact Edited!')
+      }))
+    }
 
   }
+
+  useEffect(() => {
+        if (id) {
+            const currentContact = store.contacts.find(contact => contact.id == id)
+            setName(currentContact.name)
+            setPhone(currentContact.phone)
+            setEmail(currentContact.email)
+            setAddress(currentContact.address)
+        }
+    }, [])
 
   return (
     <div className="container d-flex flex-column">
 
-      <h1 className="text-center">Add a new Contact</h1>
+      <h1 className="text-center">{!id ? 'Add a new Contact' : 'Edit contact'}</h1>
       
       <form onSubmit={saveContact} className="container">
 
