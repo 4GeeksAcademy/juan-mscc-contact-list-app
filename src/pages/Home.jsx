@@ -6,7 +6,31 @@ import Contact from "../components/Contact.jsx";
 
 export const Home = () => {
 
+	const USER = 'Gordon Freeman'
+
 	const {store, dispatch} =useGlobalReducer()
+
+	function createContact(){
+		fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman')
+		.then((resp) => {
+			if (!resp.ok) {throw new Error('Error')}
+			updateContacts()
+			return
+		})
+		.catch((error) => {
+			console.log(error)
+			fetch('https://playground.4geeks.com/contact/agendas/Gordon%20Freeman', {
+				method: 'POST',
+				headers: {
+              		'Content-Type': 'application/json'
+          		}
+			})
+			.then((resp) => {
+				console.log(resp)
+				updateContacts()
+			})
+		})
+	}
 
 	function updateContacts(){
 		console.log('Updating!')
@@ -26,7 +50,7 @@ export const Home = () => {
 	}
 
 	useEffect(() => {
-		updateContacts()
+		createContact()
 	}, [])
 
 	return (
